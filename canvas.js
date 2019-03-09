@@ -9,100 +9,46 @@ window.addEventListener("resize", function() {
   canvas.height = window.innerHeight;
 });
 
+function Star(x,y,radius,speed) {
+  this.x = x;
+  this.y = y;
+  this.radius = radius;
+  this.speed = speed;
+  this.t = Math.random() * Math.PI * 2;
 
-var x = 200
+  this.draw = function() {
+    c.fillStyle = "#ffffff";
+    c.beginPath();
+    var twinkle_rad = this.radius * (1 - Math.cos(this.t)**6);
+    c.arc(this.x,this.y,twinkle_rad,0,Math.PI*2);
+    c.fill();
+  }
+  this.update = function() {
+    this.t += this.speed;
+    this.draw();
+  }
+
+}
+
+var stars = [];
+for (var i = 0; i < 600; i++) {
+  var star_x = Math.random() * canvas.width * 1.5;
+  var star_y = Math.random() * canvas.height * 1.5;
+  var star_r = Math.random() * 2;
+  var star_s = Math.random() * .01;
+  stars.push(new Star(star_x,star_y,star_r,star_s));
+}
+
+// console.log(star.x);
+// console.log(star.y);
+// console.log(star.radius);
+// star.update();
+
 function animate() {
   requestAnimationFrame(animate);
-  c.clearRect(0,0,innerWidth,innerHeight)
-
-  c.fillStyle = "rgba(255,0,0,0.5)"
-  c.fillRect(x,100,10,10);
-  x+=1
+  c.clearRect(0,0,innerWidth,innerHeight);
+  for (var i = 0; i < stars.length; i++) {
+    stars[i].update()
 }
-animate()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Makes a title and returns list of letters
-function makeTitle(title_text) {
-  // Make title
-  var title_div = document.createElement("div");
-  title_div.setAttribute("class", "title");
-  // Make letters
-  var letters = [];
-  for (var i = 0; i < title_text.length; i++) {
-    var character_div = document.createElement("div");
-    var copy_character;
-    character_div.setAttribute("class", "letter");
-
-    copy_character = document.createTextNode(title_text[i]);
-    character_div.appendChild(copy_character);
-    title_div.appendChild(character_div);
-
-    letters.push(character_div);
-  }
-  // Parent and return array of letters
-  parent.appendChild(title_div);
-  return letters;
 }
-
-// Find the title, get it's text and remove it
-var title_text = document.getElementById("title").innerHTML;
-var parent = document.getElementById("title").parentNode;
-parent.removeChild(document.getElementById("title"));
-
-var title_count = 1;
-var color_title_delay = 0.42;
-var color_letter_delay = 1 / 40;
-var wiggle_title_delay = 0;
-var wiggle_letter_delay = 1 / 10;
-
-var x_start = -50;
-var y_start = -130;
-var x_step = .4;
-var y_step = 1.8;
-
-// Make titles
-var title_elements = [];
-for (var i = 0; i < title_count; i++) {
-  title_elements.push(makeTitle(title_text));
-}
-
-//Assign the animations and stuff per element
-for (var title = 0; title < title_elements.length; title++) {
-  //Set z vis and pos
-  title_parent = title_elements[title][0].parentElement;
-
-  x_pos = x_step * title + x_start;
-  y_pos = y_step * title + y_start;
-  transform = "transform: translate(" + x_pos + "%, " + y_pos + "%);";
-  z = "z-index: " + 100 * (title_count / (title + 1)) + ";";
-
-  title_parent.setAttribute("style", transform + z);
-
-  for (var letter = 0; letter < title_elements[title].length; letter++) {
-    // Strings to assign animations
-    var color_offset = title * color_title_delay + letter * color_letter_delay;
-    var wiggle_offset =
-      title * wiggle_title_delay + letter * wiggle_letter_delay;
-
-    var color_str = "color 2.5s linear " + color_offset + "s infinite";
-    var wiggle_str = "wiggle 4s ease-in-out " + wiggle_offset + "s infinite";
-
-    var combo_str = "animation: " + color_str  + ", " + wiggle_str + ";";
-
-    title_elements[title][letter].setAttribute("style", combo_str);
-  }
-}
+animate();
