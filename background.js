@@ -46,8 +46,8 @@ for (var i = 0; i < 600; i++) {
 
 function animate() {
   requestAnimationFrame(animate);
-  background_ctx.clearRect(0,0,innerWidth,innerHeight);
-  // title_ctx.clearRect(0,0,innerWidth,innerHeight);
+  background_ctx.clearRect(0,0,background_c.width,background_c.height);
+  title_ctx.clearRect(0,0,title_c.width,title_c.height);
   for (var i = 0; i < stars.length; i++) {
     stars[i].update()
   }
