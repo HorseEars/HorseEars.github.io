@@ -1,46 +1,59 @@
-// Makes a title and returns list of letters
-function makeTitle(title_text) {
-  // Make title
-  var title_div = document.createElement("div");
-  title_div.setAttribute("class", "title");
-  // Make letters
-  var letters = [];
-  for (var i = 0; i < title_text.length; i++) {
-    var character_div = document.createElement("div");
-    var copy_character;
-    character_div.setAttribute("class", "letter");
+var title_c = document.querySelector("#title");
+var title_ctx = title_c.getContext("2d");
 
-    copy_character = document.createTextNode(title_text[i]);
-    character_div.appendChild(copy_character);
-    title_div.appendChild(character_div);
+var canvas_width = title_c.width
+var canvas_height = title_c.height
 
-    letters.push(character_div);
-  }
-  // Parent and return array of letters
-  parent.appendChild(title_div);
-  return letters;
+function color(x,offset) {
+  var timescale = 30
+  inside = Math.PI*(x+(offset*timescale))/timescale
+  preshift = (Math.cos(inside)+1)/2
+  complete = 75*preshift+180
+  return complete
 }
 
-// Find the title, get it's text and remove it
-var title_text = document.getElementById("title").innerHTML;
-var parent = document.getElementById("title").parentNode;
-parent.removeChild(document.getElementById("title"));
+function Letter(x_pos,y_pos,time,char) {
+  this.x = x_pos;
+  this.y = y_pos;
+  this.t = time;
+  this.char = char;
 
-var color_letter_delay = 1 / 40;
-var wiggle_letter_delay = 1 / 10;
+  this.draw = function() {
+    var r = color(this.t,0);
+    var g = color(this.t,2/3);
+    var b = color(this.t,4/3);
 
-// Make titles
-title_element = makeTitle(title_text)
+    var x_wiggle = this.x+Math.cos(this.t/20.0)*horz_amp
+    var y_wiggle = this.y+Math.sin(this.t/20.0)*vert_amp
 
-for (var letter = 0; letter < title_element.length; letter++) {
-  // Strings to assign animations
-  var color_offset = letter * color_letter_delay;
-  var wiggle_offset = letter * wiggle_letter_delay;
+    title_ctx.fillStyle = "rgb("+r+","+g+","+b+")";
 
-  var color_str = "color 3.5s linear " + color_offset + "s infinite";
-  var wiggle_str = "wiggle 5s ease-in-out " + wiggle_offset + "s infinite";
+    title_ctx.fillText(this.char, x_wiggle, y_wiggle);
+  }
+  this.update = function() {
+    this.t += speed;
+    this.draw();
+  }
+}
 
-  var combo_str = "animation: " + color_str  + ", " + wiggle_str + ";";
+var title = "Howdy, I am Thomas"
 
-  title_element[letter].setAttribute("style", combo_str);
+title_ctx.font = "75pt Sriracha";
+title_start_height = canvas_height/2
+title_width = title_ctx.measureText(title).width
+title_start_width = (canvas_width - title_width)/2
+
+
+var letters = [];
+
+var speed = 1.22;
+var width_offset = 0;
+var time_offset = 2;
+var horz_amp = 10;
+var vert_amp = 35;
+
+for (var i = 0; i < title.length; i++) {
+  var letter_start = title_start_width + width_offset
+  letters.push(new Letter(letter_start,title_start_height,i*time_offset,title[i]));
+  width_offset += title_ctx.measureText(title[i]).width
 }
