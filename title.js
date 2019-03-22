@@ -40,8 +40,8 @@ function Letter(x_pos,y_pos,c_time,p_time,char) {
 
 var title = "Howdy, I am Thomas"
 
-title_ctx.font = "75pt Sriracha";
-title_start_height = canvas_height/2+20
+title_ctx.font = "95px Sriracha";
+title_start_height = canvas_height/2+25
 title_width = title_ctx.measureText(title).width
 title_start_width = (canvas_width - title_width)/2
 
