@@ -40,7 +40,7 @@ for (var i = 0; i < 600; i++) {
   var star_x = Math.random() * background_c.width * 1.5;
   var star_y = Math.random() * background_c.height * 1.5;
   var star_r = Math.random() * 2;
-  var star_s = Math.random() * .03;
+  var star_s = Math.random() * .025;
   stars.push(new Star(star_x,star_y,star_r,star_s));
 }
 
