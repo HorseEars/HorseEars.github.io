@@ -9,11 +9,13 @@
 
 #title {
   position: relative;
+  margin-top: 5%;
+  margin-bottom: 2.5%;
   left: 50%;
   transform: translate(-50%, 0%);
 
   width: 100%;
-  max-width: 1000px;
+  max-width: 1200px;
 }
 
 body{
@@ -21,64 +23,89 @@ body{
   background-image:
     linear-gradient(
       to right,
-      #060708 0%,
-      #202020 30%,
-      #202020 70%,
-      #060708 100%
+      #13151a 0%,
+      #292a2d 35%,
+      #292a2d 65%,
+      #13151a 100%
     );
   margin: 0px;
 }
 
-@media all and (min-width: 900px) {
+@media all and (min-width: 1020px) {
   h1{
-    font-size: 2.25em;
+    font-size: 2.4em;
+    color: #c1c1c1;
+    text-shadow: 0px 0px 5px black;
+    margin: 0px;
+    margin-top: 5%;
+  }
+  h2{
+    font-size: 1.4em;
     color: #c1c1c1;
     text-shadow: 0px 0px 5px black;
     margin: 0px;
   }
-  h2{
-    font-size: 1.5em;
-    color: #c1c1c1;
-    text-shadow: 0px 0px 5px black;
-  }
   p{
-    font-size: 1.25em;
+    font-size: 1.35em;
     color: #c1c1c1;
     text-shadow: 0px 0px 5px black;
+    margin: 0px;
   }
 }
 
-@media all and (max-width: 899px) and (min-width: 20px) {
+@media all and (max-width: 1019px) and (min-width: 20px) {
   h1{
-    font-size: 3vmax;
+    font-size: 3.8vmax;
     color: #c1c1c1;
     text-shadow: 0px 0px 5px black;
     margin: 0px;
+    margin-top: 5%;
   }
   h2{
-    font-size: 2.75vmax;
-    color: #c1c1c1;
-    text-shadow: 0px 0px 5px black;
-  }
-  p{
     font-size: 2.2vmax;
     color: #c1c1c1;
     text-shadow: 0px 0px 5px black;
+    margin: 0px;
+  }
+  p{
+    font-size: 2.0vmax;
+    color: #c1c1c1;
+    text-shadow: 0px 0px 5px black;
+    margin: 0px;
   }
 }
-
 
 .main{
   position: relative;
   left: 50%;
   width: 75%;
-  max-width: 850px;
+  max-width: 1000px;
   transform: translate(-50%,0%);
 
   line-height: 1.429;
   font-family: Verdana, Arial, sans-serif;
 
-  background: rgba(00, 00, 0, 0.75);
+  background: rgba(00, 00, 0, 0.7);
   border-radius: 25px;
-  padding: 10px 10px 10px 10px;
+  padding: 20px;
+  padding-top: 1px;
+}
+
+ul {
+  list-style-type: circle;
+}
+
+li {
+  white-space: pre-wrap;
+}
+
+.contact {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.contact_items {
+  margin: 2%;
+  display: inline-block;
 }

@@ -6,9 +6,9 @@ var canvas_height = title_c.height
 
 
 function color(x,offset) {
-  inside = Math.PI*(x+(offset*color_timescale))/color_timescale
-  preshift = (Math.cos(inside)+1)/2
-  complete = 75*preshift+180
+  var inside = Math.PI*(x+(offset*color_timescale))/color_timescale
+  var preshift = (Math.cos(inside)+1)/2
+  var complete = 75*preshift+180
   return complete
 }
 
@@ -44,11 +44,11 @@ function Letter(x_pos,y_pos,c_time,p_time,char) {
 }
 
 var title = "Howdy, I'm Tommy Thomas"
-title_ctx.font = "74px \'Permanent Marker\', cursive";
+title_ctx.font = "88px \'Permanent Marker\', cursive";
 
-title_start_height = canvas_height/2+25
-title_width = title_ctx.measureText(title).width
-title_start_width = (canvas_width - title_width)/2
+var title_start_height = canvas_height/2+25
+var title_width = title_ctx.measureText(title).width
+var title_start_width = (canvas_width - title_width)/2
 
 
 var letters = [];
@@ -65,17 +65,18 @@ var color_offset = 5;
 var color_timescale = 320
 
 var trail_count = 13;
-var trail_color_offset = 30;
+var trail_color_offset = 40;
 var trail_wiggle_offset = 2;
 
-
 var width_total = 0;
+
 window.addEventListener("load", function() {
+  title_width = title_ctx.measureText(title).width
+  title_start_width = (canvas_width - title_width)/2
   for (var i = 0; i < title.length; i++) {
     var letter_start = title_start_width + width_total
     letters.push(new Letter(letter_start,title_start_height,
                 i*color_offset,i*wiggle_offset,title[i]));
     width_total += title_ctx.measureText(title[i]).width
-    console.log(title_ctx.measureText(title[i]).width);
   }
 });
